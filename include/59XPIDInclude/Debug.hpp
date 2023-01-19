@@ -7,4 +7,5 @@ void printEncdTerminal();
 void printErrorTerminal();
 void printPowerTerminal();
 void printVelocity();
+void printabsReading();
 #endif

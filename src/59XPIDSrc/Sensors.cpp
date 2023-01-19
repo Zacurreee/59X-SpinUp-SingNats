@@ -3,20 +3,22 @@ double encdL = 0, encdR = 0, bearing = 0, angle = halfPI;
 double measuredV = 0, measuredVL = 0, measuredVR = 0;
 void Sensors(void * ignore){
   Motor LGB(LGBPort);
-	Motor CL(CLPort);
+	Motor FL(FLPort);
 	Motor BL(BLPort);
 	Motor RGB(RGBPort);
-	Motor CR(CRPort);
+	Motor FR(FRPort);
 	Motor BR(BRPort);
   Imu Inertial (ImuPort);
+  // ADIEncoder encoderL (encdPort_L, encdPort_L +1, true);
+  // ADIEncoder encoderR (encdPort_R, encdPort_R +1, true);
   while(true){
     if(!Inertial.is_calibrating()){
-      encdL = CL.get_position();
-      encdR = CR.get_position();
-      bearing = Inertial.get_rotation();
+      encdL = BL.get_position();
+      encdR = BR.get_position();
+      bearing = Inertial.get_heading();
       angle = halfPI - bearing * toRad;
-      measuredVL = ((LGB.get_actual_velocity() + CL.get_actual_velocity() + BL.get_actual_velocity())/ 3);
-      measuredVR = ((RGB.get_actual_velocity() + CR.get_actual_velocity() + BR.get_actual_velocity())/ 3);
+      measuredVL = ((LGB.get_actual_velocity() + FL.get_actual_velocity() + BL.get_actual_velocity())/ 3);
+      measuredVR = ((RGB.get_actual_velocity() + FR.get_actual_velocity() + BR.get_actual_velocity())/ 3);
       measuredV = (measuredVL + measuredVR)/2;
     }
     delay(5);

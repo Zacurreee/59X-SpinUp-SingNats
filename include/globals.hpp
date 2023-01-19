@@ -2,24 +2,25 @@
 #define _GLOBALS_HPP_
 
 // Motor ports
-#define LGBPort 7
-#define CLPort 2
-#define BLPort 3
-#define RGBPort 11
-#define CRPort 12
-#define BRPort 13
-#define ImuPort 15
-#define RotatePort 5
+#define RGBPort 18
+#define BRPort 20
+#define FRPort 19
+#define LGBPort 14
+#define BLPort 15
+#define FLPort 13
+#define ImuPort 16
+#define RotatePort 12
 
 // Mech Ports
-#define CataPort 1 //7  
-#define IntakePort 4
+#define CataPort 1
+#define IntakePort 3
 
+//Encoder Ports
+#define encdPort_L 7
+#define encdPort_R 5
 
 // Pneumatic Ports
-#define tiltPort 6
-#define tiltClampPort 8
-#define armClampPort 10
+
 
 
 

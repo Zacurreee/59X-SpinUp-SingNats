@@ -7,7 +7,7 @@ void printPosMaster(){
   else master.print(2, 0, "%.2f %.2f %.2f", X, Y, bearing);
 }
 void printPosTerminal(){
-  printf("x: %.2f y: %.2f bearing: %.2f\n", X, Y, bearing);
+  printf("x: %.2f y: %.2fbearing: %.2f\n", X, Y, bearing);
 }
 void printEncdTerminal(){
   printf("encdL: %.2f encdR: %.2f\n", encdL, encdR);
@@ -24,7 +24,13 @@ void printPowerTerminal(){
 }
 
 void printVelocity(){
-  printf("measuredVL: %.5f, measuredVR %.5f\n", measuredVL, measuredVR);
+  printf("measuredVL: %.5f, measuredVR: %.5f\n", measuredVL, measuredVR);
+}
+
+void printabsReading(){
+  Motor FL(FLPort);
+  Motor FR(FRPort);
+  printf("FL: %.2f, FR:%.2f\n", FL.get_position(), FR.get_position());
 }
 void Debug(void * ignore){
   Imu Inertial (ImuPort);
@@ -40,6 +46,7 @@ void Debug(void * ignore){
         case 4: printTargPowerTerminal(); break;
         case 5: printPowerTerminal(); break;
         case 6: printVelocity(); break;
+        case 7: printabsReading(); break;
       }
     }
     delay(50);

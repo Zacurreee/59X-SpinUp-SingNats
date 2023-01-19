@@ -1,10 +1,10 @@
 #include "main.h"
-#define DEFAULT_KP 0.46
-#define DEFAULT_KD 0.3
-#define DEFAULT_TURN_KP 1.9
-#define DEFAULT_TURN_KD 0.0
+#define DEFAULT_KP 0.12
+#define DEFAULT_KD 0
+#define DEFAULT_TURN_KP 1
+#define DEFAULT_TURN_KD 0
 #define RAMPING_POW 5
-#define DISTANCE_LEEWAY 7
+#define DISTANCE_LEEWAY 5
 #define BEARING_LEEWAY 2
 #define STOP_VEL 5.0
 #define MAX_POW 120
@@ -22,7 +22,6 @@ void baseMove(double dis, double kp, double kd){
   turnMode = false;
   targEncdL += dis/inPerDeg;
   targEncdR += dis/inPerDeg;
-
   kP = kp;
   kD = kd;
 }
@@ -88,12 +87,14 @@ void waitBase(double cutoff){
 
 void Control(void * ignore){
   Motor LGB(LGBPort);
-	Motor CL(CLPort);
+	Motor FL(FLPort);
 	Motor BL(BLPort);
 	Motor RGB(RGBPort);
-	Motor CR(CRPort);
+	Motor FR(FRPort);
 	Motor BR(BRPort);
   Imu Inertial(ImuPort);
+  // ADIEncoder encoderL (encdPort_L, encdPort_L +1, true);
+  // ADIEncoder encoderR (encdPort_R, encdPort_R +1, true);
 
   double prevErrorEncdL = 0, prevErrorEncdR = 0, prevErrorBearing = 0;
   while(competition::is_autonomous()){
@@ -132,10 +133,10 @@ void Control(void * ignore){
       powerR = abscap(powerR, MAX_POW);
     }
     LGB.move(powerL);
-    CL.move(powerL);
+    FL.move(powerL);
     BL.move(powerL);
     RGB.move(powerR);
-    CR.move(powerR);
+    FR.move(powerR);
     BR.move(powerR);
     delay(5);
   }
@@ -143,18 +144,22 @@ void Control(void * ignore){
 
 void resetCoords(double x, double y){
   Motor LGB(LGBPort);
-	Motor CL(CLPort);
+	Motor FL(FLPort);
 	Motor BL(BLPort);
 	Motor RGB(RGBPort);
-	Motor CR(CRPort);
-	Motor BR (BRPort);
+	Motor FR(FRPort);
+	Motor BR(BRPort);
+  ADIEncoder encoderL (encdPort_L, encdPort_L +1, true);
+  ADIEncoder encoderR (encdPort_R, encdPort_R +1, true);
 
   LGB.tare_position();
-  CL.tare_position();
+  FL.tare_position();
   BL.tare_position();
   RGB.tare_position();
-  CR.tare_position();
+  FR.tare_position();
   BR.tare_position();
+  encoderL.reset();
+  encoderR.reset();
   resetPrevEncd();
 
   targBearing = bearing;

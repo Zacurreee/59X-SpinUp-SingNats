@@ -1,5 +1,5 @@
 #include "main.h"
-const double inPerDeg = 0.036029505385762668;
+  const double inPerDeg = 0.01551505076510816545106404390741;
 double X = 0, Y = 0, prevEncdL = 0, prevEncdR = 0;
 void setCoords(double x, double y){
   X = x;
