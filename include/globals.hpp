@@ -17,7 +17,8 @@
 
 //Encoder Ports
 #define encdPort_L 7
-#define encdPort_R 5
+#define encdPort_R 3
+#define Lsensor 2
 
 // Pneumatic Ports
 

@@ -3,7 +3,7 @@ int DEBUG_MODE = 3;
 void printPosMaster(){
   Controller master(E_CONTROLLER_MASTER);
   Imu Inertial (ImuPort);
-  if(Inertial.is_calibrating()) master.print(2, 0, "Callibrate IMU");
+  if(Inertial.is_calibrating()) master.print(2, 0, "Calibrate IMU");
   else master.print(2, 0, "%.2f %.2f %.2f", X, Y, bearing);
 }
 void printPosTerminal(){
@@ -32,6 +32,17 @@ void printabsReading(){
   Motor FR(FRPort);
   printf("FL: %.2f, FR:%.2f\n", FL.get_position(), FR.get_position());
 }
+
+void printencoder(){
+  ADIEncoder encoderL (encdPort_L, encdPort_L +1);
+	ADIEncoder encoderR (encdPort_R, encdPort_R +1);
+  printf("L: %.2f, R:%.2f\n", encoderL.get_value(), encoderR.get_value());
+}
+
+void printSensor(){
+  ADIAnalogIn LSensor (Lsensor);
+  printf("Sensor: %.2f\n", LSensor.get_value());
+}
 void Debug(void * ignore){
   Imu Inertial (ImuPort);
   while(true){
@@ -47,6 +58,8 @@ void Debug(void * ignore){
         case 5: printPowerTerminal(); break;
         case 6: printVelocity(); break;
         case 7: printabsReading(); break;
+        case 8: printencoder(); break;
+        case 9: printSensor(); break;
       }
     }
     delay(50);

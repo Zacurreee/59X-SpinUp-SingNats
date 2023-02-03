@@ -1,13 +1,13 @@
 #include "main.h"
-#define DEFAULT_KP 0.12
-#define DEFAULT_KD 0
-#define DEFAULT_TURN_KP 1
-#define DEFAULT_TURN_KD 0
+#define DEFAULT_KP 0.14
+#define DEFAULT_KD 0.08
+#define DEFAULT_TURN_KP 1.2
+#define DEFAULT_TURN_KD 0.9
 #define RAMPING_POW 5
-#define DISTANCE_LEEWAY 5
+#define DISTANCE_LEEWAY 30
 #define BEARING_LEEWAY 2
 #define STOP_VEL 5.0
-#define MAX_POW 120
+#define MAX_POW 100
 
 double targEncdL = 0, targEncdR = 0, targBearing = 0;
 double errorEncdL = 0, errorEncdR = 0, errorBearing = 0;
@@ -82,7 +82,7 @@ void waitBase(double cutoff){
 
   targEncdL = encdL;
   targEncdR = encdR;
-  printf("Tima taken %.2f\n", (millis() - start));
+  printf("Time taken %.2f\n", (millis() - start));
 }
 
 void Control(void * ignore){
@@ -93,8 +93,8 @@ void Control(void * ignore){
 	Motor FR(FRPort);
 	Motor BR(BRPort);
   Imu Inertial(ImuPort);
-  // ADIEncoder encoderL (encdPort_L, encdPort_L +1, true);
-  // ADIEncoder encoderR (encdPort_R, encdPort_R +1, true);
+  // ADIEncoder encoderL (encdPort_L, encdPort_L + 1);
+  // ADIEncoder encoderR (encdPort_R, encdPort_R + 1);
 
   double prevErrorEncdL = 0, prevErrorEncdR = 0, prevErrorBearing = 0;
   while(competition::is_autonomous()){
@@ -149,8 +149,8 @@ void resetCoords(double x, double y){
 	Motor RGB(RGBPort);
 	Motor FR(FRPort);
 	Motor BR(BRPort);
-  ADIEncoder encoderL (encdPort_L, encdPort_L +1, true);
-  ADIEncoder encoderR (encdPort_R, encdPort_R +1, true);
+  ADIEncoder encoderL (encdPort_L, encdPort_L +1);
+  ADIEncoder encoderR (encdPort_R, encdPort_R +1);
 
   LGB.tare_position();
   FL.tare_position();
@@ -167,4 +167,8 @@ void resetCoords(double x, double y){
   targEncdR = 0;
 
   setCoords(x, y);
+}
+
+void resetBearing(double bearing){
+  bearing = 0;
 }
