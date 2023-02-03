@@ -3,7 +3,7 @@
 double minHeight = 27400;
 double maxHeight = 35000;
 double capHeight = 10000;
-bool shooting = false, catdown = false, catclear = true, auton = false;
+bool shooting = false, catdown = false, catclear = true, indexing = true;
 double cataKP = 0.21;
 double intakeSpeed = 127;
 double targIntakeSpeed = 0;
@@ -24,7 +24,7 @@ void getRotate(void*ignore){
     if(shooting){
       catdown = false;
       Cata.move(127);
-      delay(1100);
+      delay(500);
       Cata.move(0);
       shooting = false;
     }else{
@@ -40,25 +40,31 @@ void intakeControl(void*ignore){
   Motor Intake (IntakePort);
   ADIAnalogIn LSensor (Lsensor);
   while(true){
-      if(catdown){
+    if(indexing){
+      if(catdown && LSensor.get_value() >= threshold){
         // && LSensor.get_value() >= threshold
         Intake.move(targIntakeSpeed);
       }else{
-        // delay(400);
-        // Intake.move(-127);
-        // delay(1000);
+        delay(300);
+        Intake.move(-127);
+        delay(1000);
+        Intake.move(0);
+      }
+    }else{
+      if (catdown){
+        Intake.move(targIntakeSpeed);
+      }else{
+        Intake.move(-127);
+        delay(1000);
         Intake.move(0);
       }
     }
   }
-
-
-void checkCompStatus(void*ignore){
-  if(competition::is_autonomous()){
-    auton = true;
-  }else{
-    auton = false;
-  }
 }
+
+void checkIndex(){
+  indexing = !indexing;
+}
+
 void shootCata(){shooting = !shooting;}
 void setIntakeSpeed(double s){targIntakeSpeed = s;}

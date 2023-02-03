@@ -1,6 +1,6 @@
 #include "main.h"
 #define DEFAULT_KP 0.14
-#define DEFAULT_KD 0.08
+#define DEFAULT_KD 0.09
 #define DEFAULT_TURN_KP 1.2
 #define DEFAULT_TURN_KD 0.9
 #define RAMPING_POW 5

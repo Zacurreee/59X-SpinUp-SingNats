@@ -50,22 +50,21 @@ void autonomous() {
 	//  }
 baseMove(-20);
 waitBase(1000);
-// delay(100);
 baseTurn (90, 1.12, 1.1);
 waitBase(1000);
 baseMove(-4.5, 0.22, 0);
 waitBase(1000);
 setIntakeSpeed(-127);
-delay(110);//50
+delay(100);
 setIntakeSpeed(0); //enough time for 2 disc intake
 baseMove(10);
 waitBase(1000);
 baseTurn(45);
 waitBase(1000);
-baseMove(32, 0.15, 1);
+baseMove(31, 0.15, 1);
 waitBase(2000);
-baseTurn(116, 1.3, 0.9);
-delay(400);
+baseTurn(115, 1.4, 0.9);
+delay(500);
 shootCata();
 delay(700);
 baseTurn(209);
@@ -79,20 +78,21 @@ setIntakeSpeed(0);
 baseMove(8);
 delay(500);
 shootCata();
-delay(600);
+delay(700);
+checkIndex();
 baseTurn(220);
 waitBase(1000);
 setIntakeSpeed(127);
-baseMove(-60, 0.15, 0.8);
-waitBase(5000);
-// setIntakeSpeed(0);
-// baseTurn();
-// waitBase(1000);
-// baseMove();
-// waitBase(1000);
-// setIntakeSpeed(-127);
-// delay(110);
-// setIntakeSpeed(0);
+baseMove(-66, 0.14, 0.7);
+waitBase(3000);
+baseTurn(180);
+waitBase(1000);
+setIntakeSpeed(0);
+baseMove(-4, 0.22, 0);
+waitBase(1000);
+setIntakeSpeed(-127);
+delay(110);
+setIntakeSpeed(0);
 }
 
 void opcontrol() {
