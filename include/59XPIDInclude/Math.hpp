@@ -10,7 +10,6 @@
  */
 #define toDeg   57.2957795130823208767981548141
 #define toRad   0.0174532925199432957692369076849
-/** refer to mathUtils.cpp for function documentation */
 double boundRad(double rad);
 double boundDeg(double deg);
 double abscap(double x, double abscap);

@@ -33,16 +33,11 @@ void printabsReading(){
   printf("FL: %.2f, FR:%.2f\n", FL.get_position(), FR.get_position());
 }
 
-void printencoder(){
-  ADIEncoder encoderL (encdPort_L, encdPort_L +1);
-	ADIEncoder encoderR (encdPort_R, encdPort_R +1);
-  printf("L: %.2f, R:%.2f\n", encoderL.get_value(), encoderR.get_value());
+void printreloadPuncher(){
+    Motor Cata(CataPort);
+    printf("pos: %.2f\n", Cata.get_position());
 }
 
-void printSensor(){
-  ADIAnalogIn LSensor (Lsensor);
-  printf("Sensor: %.2f\n", LSensor.get_value());
-}
 void Debug(void * ignore){
   Imu Inertial (ImuPort);
   while(true){
@@ -58,8 +53,7 @@ void Debug(void * ignore){
         case 5: printPowerTerminal(); break;
         case 6: printVelocity(); break;
         case 7: printabsReading(); break;
-        case 8: printencoder(); break;
-        case 9: printSensor(); break;
+        case 8: printreloadPuncher(); break;
       }
     }
     delay(50);

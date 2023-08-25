@@ -1,6 +1,5 @@
 #include "main.h"
-  const double inPerDeg = 0.01551505076510816545106404390741; //this is manual tuning
-  // 0.0149599650170952 try this tmr, is the formula based
+  const double inPerDeg = 0.023998277214922; //this is manual tuning
 double X = 0, Y = 0, prevEncdL = 0, prevEncdR = 0;
 void setCoords(double x, double y){
   X = x;

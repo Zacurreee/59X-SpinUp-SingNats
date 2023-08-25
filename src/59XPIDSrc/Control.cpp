@@ -1,9 +1,9 @@
 #include "main.h"
-#define DEFAULT_KP 0.14
-#define DEFAULT_KD 0.09
-#define DEFAULT_TURN_KP 1.2
-#define DEFAULT_TURN_KD 0.9
-#define RAMPING_POW 5
+#define DEFAULT_KP 0.12
+#define DEFAULT_KD 0.15
+#define DEFAULT_TURN_KP 0.57
+#define DEFAULT_TURN_KD 0.5
+#define RAMPING_POW 3
 #define DISTANCE_LEEWAY 30
 #define BEARING_LEEWAY 2
 #define STOP_VEL 5.0
@@ -16,7 +16,7 @@ double targPowerL = 0, targPowerR = 0;
 double kP = DEFAULT_KP, kD = DEFAULT_KD;
 
 bool turnMode = false, pauseBase = false;
-
+bool auton = false;
 void baseMove(double dis, double kp, double kd){
   printf("baseMove(%.2f)\n", dis);
   turnMode = false;
@@ -85,7 +85,7 @@ void waitBase(double cutoff){
   printf("Time taken %.2f\n", (millis() - start));
 }
 
-void Control(void * ignore){
+void Control(void *ignore){
   Motor LGB(LGBPort);
 	Motor FL(FLPort);
 	Motor BL(BLPort);
@@ -93,11 +93,9 @@ void Control(void * ignore){
 	Motor FR(FRPort);
 	Motor BR(BRPort);
   Imu Inertial(ImuPort);
-  // ADIEncoder encoderL (encdPort_L, encdPort_L + 1);
-  // ADIEncoder encoderR (encdPort_R, encdPort_R + 1);
 
   double prevErrorEncdL = 0, prevErrorEncdR = 0, prevErrorBearing = 0;
-  while(competition::is_autonomous()){
+  while(competition:: is_autonomous()){
     if(!Inertial.is_calibrating() && !pauseBase) {
       if(turnMode){
         errorBearing = targBearing - bearing;
@@ -149,8 +147,7 @@ void resetCoords(double x, double y){
 	Motor RGB(RGBPort);
 	Motor FR(FRPort);
 	Motor BR(BRPort);
-  ADIEncoder encoderL (encdPort_L, encdPort_L +1);
-  ADIEncoder encoderR (encdPort_R, encdPort_R +1);
+
 
   LGB.tare_position();
   FL.tare_position();
@@ -158,8 +155,6 @@ void resetCoords(double x, double y){
   RGB.tare_position();
   FR.tare_position();
   BR.tare_position();
-  encoderL.reset();
-  encoderR.reset();
   resetPrevEncd();
 
   targBearing = bearing;
@@ -170,5 +165,8 @@ void resetCoords(double x, double y){
 }
 
 void resetBearing(double bearing){
-  bearing = 0;
+  bearing = bearing;
+}
+void control(){
+// task_suspend()
 }

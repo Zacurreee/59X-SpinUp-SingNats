@@ -8,6 +8,4 @@ void printErrorTerminal();
 void printPowerTerminal();
 void printVelocity();
 void printabsReading();
-void printencoder();
-void printSensor();
 #endif

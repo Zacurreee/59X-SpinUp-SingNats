@@ -1,6 +1,7 @@
 #include "main.h"
 double encdL = 0, encdR = 0, bearing = 0, angle = halfPI;
 double measuredV = 0, measuredVL = 0, measuredVR = 0;
+// task to get sensor readings
 void Sensors(void * ignore){
   Motor LGB(LGBPort);
 	Motor FL(FLPort);
@@ -9,12 +10,10 @@ void Sensors(void * ignore){
 	Motor FR(FRPort);
 	Motor BR(BRPort);
   Imu Inertial (ImuPort);
-  ADIEncoder encoderL (encdPort_L, encdPort_L + 1);
-  ADIEncoder encoderR (encdPort_R, encdPort_R + 1);
   while(true){
     if(!Inertial.is_calibrating()){
-      encdL = FL.get_position();
-      encdR = FR.get_position();
+      encdL = BL.get_position();
+      encdR = BR.get_position();
       bearing = Inertial.get_heading();
       angle = halfPI - bearing * toRad;
       measuredVL = ((LGB.get_actual_velocity() + FL.get_actual_velocity() + BL.get_actual_velocity())/ 3);
